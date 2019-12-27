@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Spinner from '../General/Spinner';
 import Fatal from '../General/Fatal';
 
@@ -50,9 +51,14 @@ class Tareas extends Component {
     };
 
     render() {
-        console.log(this.props);
+        // console.log(this.props);
         return (
             <div>
+                <button>
+                    <Link to='/tareas/guardar'>
+                        Agregar
+                    </Link>
+                </button>
                 { this.mostrarContenido() }
             </div>
         )
