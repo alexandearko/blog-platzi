@@ -1,6 +1,28 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import * as tareasActions from '../../actions/tareasActions';
 
 class Guardar extends Component {
+
+    cambioUsuarioId = (event) => {
+        this.props.cambioUsuarioId(event.target.value);
+    }
+    cambioTitulo = (event) => {
+        this.props.cambioTitulo(event.target.value);
+    };
+
+    guardar = () => {
+        const { usuario_id, titulo, agregar } = this.props;
+        const nueva_tarea = {
+            userId: usuario_id,
+            title: titulo,
+            completed: false
+        };
+
+        agregar(nueva_tarea)
+    };
+
     render() {
         return (
             <div>
@@ -8,12 +30,22 @@ class Guardar extends Component {
                     Guardar Tarea
                 </h1>
                 Usuario id:
-                <input type='number' />
+                <input
+                    type='number'
+                    value={ this.props.usuario_id }
+                    onChange={ this.cambioUsuarioId }
+                />
                 <br/><br/>
                 Titulo:
-                <input type="text"/>
+                <input
+                    type="text"
+                    value={ this.props.titulo }
+                    onChange={ this.cambioTitulo }
+                />
                 <br/><br/>
-                <button>
+                <button
+                    onClick={ this.guardar }
+                >
                     Guardar
                 </button>
             </div>
@@ -21,4 +53,6 @@ class Guardar extends Component {
     }
 }
 
-export default Guardar;
+const mapStateToProps = ({ tareasReducer }) => tareasReducer; 
+
+export default connect(mapStateToProps, tareasActions)(Guardar);
